@@ -62,7 +62,7 @@ public class User implements UserDetails, Principal {
 
     @Override
     public String getName() {
-        return "";
+        return email;
     }
 
     @Override
@@ -101,6 +101,10 @@ public class User implements UserDetails, Principal {
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
+    }
+
+    public String fullName() {
+        return firstName + " " + lastName;
     }
 
 }

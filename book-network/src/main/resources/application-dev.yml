@@ -8,6 +8,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false  # default
+    open-in-view: false
     properties:
       hibernate:
         format_sql: true
@@ -28,8 +29,15 @@ spring:
         connectiontimout: 5000
         timeout: 3000
         writetimeout: 5000
-  application:
-    security:
-      jwt:
-        secret-key: F5D17E5B343E85EB122C7B3D89DAC43D85F2CCF47E
-        expiration: 8640000
+
+application:
+  security:
+    jwt:
+      secret-key: F5D17E5B343E85EB122C7B3D89DAC43D85F2CCF47E
+      expiration: 8640000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+
+server:
+  port: 8088
