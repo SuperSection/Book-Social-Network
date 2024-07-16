@@ -16,6 +16,7 @@ import java.util.Map;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE_MIXED;
 
+
 @Service
 @RequiredArgsConstructor
 public class EmailService {
