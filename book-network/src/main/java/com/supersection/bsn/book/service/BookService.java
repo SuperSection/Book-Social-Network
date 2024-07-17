@@ -7,6 +7,7 @@ import com.supersection.bsn.book.entity.Book;
 import com.supersection.bsn.book.mapper.BookMapper;
 import com.supersection.bsn.book.repository.BookRepository;
 import com.supersection.bsn.exception.OperationNotPermittedException;
+import com.supersection.bsn.file.FileStorageService;
 import com.supersection.bsn.history.entity.BookTransactionHistory;
 import com.supersection.bsn.history.repository.BookTransactionHistoryRepository;
 import com.supersection.bsn.shared.PageResponse;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +35,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookTransactionHistoryRepository transactionHistoryRepository;
     private final BookMapper bookMapper;
+    private final FileStorageService fileStorageService;
 
 
     public Integer save(BookRequest request, Authentication connectedUser) {
@@ -225,6 +228,17 @@ public class BookService {
 
         bookTransactionHistory.setReturnApproved(true);
         return transactionHistoryRepository.save(bookTransactionHistory).getId();
+    }
+
+
+    public void uploadBookCoverPicture(MultipartFile file, Integer bookId, Authentication connectedUser) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("No book found with the ID::" + bookId));
+        User user = (User) connectedUser.getPrincipal();
+
+        var bookCover = fileStorageService.saveFile(file, user.getId());
+        book.setBookCover(bookCover);
+        bookRepository.save(book);
     }
 
 }
