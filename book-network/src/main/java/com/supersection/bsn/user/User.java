@@ -1,7 +1,7 @@
 package com.supersection.bsn.user;
 
 import com.supersection.bsn.book.entity.Book;
-import com.supersection.bsn.history.BookTransactionHistory;
+import com.supersection.bsn.history.entity.BookTransactionHistory;
 import com.supersection.bsn.role.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

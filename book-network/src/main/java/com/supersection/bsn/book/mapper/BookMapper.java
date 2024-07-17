@@ -2,7 +2,9 @@ package com.supersection.bsn.book.mapper;
 
 import com.supersection.bsn.book.dto.BookRequest;
 import com.supersection.bsn.book.dto.BookResponse;
+import com.supersection.bsn.book.dto.BorrowedBookResponse;
 import com.supersection.bsn.book.entity.Book;
+import com.supersection.bsn.history.entity.BookTransactionHistory;
 
 
 public class BookMapper {
@@ -32,6 +34,18 @@ public class BookMapper {
                 .owner(book.getOwner().getFullName())
                 // TODO : implement this later
                 // .cover()
+                .build();
+    }
+
+    public BorrowedBookResponse toBorrowedBookResponse(BookTransactionHistory history) {
+        return BorrowedBookResponse.builder()
+                .id(history.getBook().getId())
+                .title(history.getBook().getTitle())
+                .authorName(history.getBook().getAuthorName())
+                .isbn(history.getBook().getIsbn())
+                .rate(history.getBook().getRate())
+                .returned(history.isReturned())
+                .returnedApproved(history.getBook().isShareable())
                 .build();
     }
 

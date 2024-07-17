@@ -1,7 +1,7 @@
 package com.supersection.bsn.book.entity;
 
 import com.supersection.bsn.feedback.Feedback;
-import com.supersection.bsn.history.BookTransactionHistory;
+import com.supersection.bsn.history.entity.BookTransactionHistory;
 import com.supersection.bsn.shared.BaseAuditingEntity;
 import com.supersection.bsn.user.User;
 import jakarta.persistence.Column;

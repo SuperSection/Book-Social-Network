@@ -1,4 +1,4 @@
-package com.supersection.bsn.history;
+package com.supersection.bsn.history.entity;
 
 import com.supersection.bsn.book.entity.Book;
 import com.supersection.bsn.shared.BaseAuditingEntity;
