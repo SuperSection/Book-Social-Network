@@ -4,6 +4,7 @@ import com.supersection.bsn.book.dto.BookRequest;
 import com.supersection.bsn.book.dto.BookResponse;
 import com.supersection.bsn.book.dto.BorrowedBookResponse;
 import com.supersection.bsn.book.entity.Book;
+import com.supersection.bsn.file.FileUtils;
 import com.supersection.bsn.history.entity.BookTransactionHistory;
 
 
@@ -32,8 +33,7 @@ public class BookMapper {
                 .archived(book.isArchived())
                 .shareable(book.isShareable())
                 .owner(book.getOwner().getFullName())
-                // TODO : implement this later
-                // .cover()
+                 .cover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build();
     }
 

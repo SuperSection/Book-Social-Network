@@ -1,6 +1,6 @@
 package com.supersection.bsn.file;
 
-import lombok.NonNull;
+import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,8 +26,8 @@ public class FileStorageService {
     private String fileUploadPath;
 
     public String saveFile(
-            @NonNull MultipartFile sourceFile,
-            @NonNull Integer userId
+            @Nonnull MultipartFile sourceFile,
+            @Nonnull Integer userId
     ) {
         final String fileUploadSubPath = "users" + separator + userId;
         return uploadFile(sourceFile, fileUploadSubPath);
@@ -34,8 +35,8 @@ public class FileStorageService {
 
 
     private String uploadFile(
-            @NonNull MultipartFile sourceFile,
-            @NonNull String fileUploadSubPath
+            @Nonnull MultipartFile sourceFile,
+            @Nonnull String fileUploadSubPath
     ) {
         final String finalUploadPath = fileUploadPath + separator + fileUploadSubPath;
 
@@ -57,7 +58,7 @@ public class FileStorageService {
             log.info("File saved to {}", targetFilePath);
             return targetFilePath;
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             log.error("File was not saved.", e);
         }
 
