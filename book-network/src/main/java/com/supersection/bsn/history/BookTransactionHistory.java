@@ -1,6 +1,6 @@
 package com.supersection.bsn.history;
 
-import com.supersection.bsn.book.Book;
+import com.supersection.bsn.book.entity.Book;
 import com.supersection.bsn.shared.BaseAuditingEntity;
 import com.supersection.bsn.user.User;
 import jakarta.persistence.Column;

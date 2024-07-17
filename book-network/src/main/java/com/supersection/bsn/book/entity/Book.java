@@ -1,10 +1,15 @@
-package com.supersection.bsn.book;
+package com.supersection.bsn.book.entity;
 
 import com.supersection.bsn.feedback.Feedback;
 import com.supersection.bsn.history.BookTransactionHistory;
 import com.supersection.bsn.shared.BaseAuditingEntity;
 import com.supersection.bsn.user.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,5 +48,21 @@ public class Book extends BaseAuditingEntity<Integer> {
     @OneToMany(mappedBy = "book")
     @Column(name = "transaction_histories")
     private List<BookTransactionHistory> transactionHistories;
+
+
+    @Transient
+    public double getRate() {
+        if (feedbacks == null || feedbacks.isEmpty()) {
+            return 0.0;
+        }
+
+        var rate = this.feedbacks.stream()
+                .mapToDouble(Feedback::getRating)
+                .average()
+                .orElse(0.0);
+
+        double roundedRate = Math.round(rate * 10.0) / 10.0;
+        return roundedRate;
+    }
 
 }

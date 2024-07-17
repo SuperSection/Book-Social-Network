@@ -1,6 +1,6 @@
 package com.supersection.bsn.feedback;
 
-import com.supersection.bsn.book.Book;
+import com.supersection.bsn.book.entity.Book;
 import com.supersection.bsn.shared.BaseAuditingEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
