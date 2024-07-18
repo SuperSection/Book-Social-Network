@@ -1,4 +1,4 @@
-package com.supersection.bsn.feedback;
+package com.supersection.bsn.feedback.entity;
 
 import com.supersection.bsn.book.entity.Book;
 import com.supersection.bsn.shared.BaseAuditingEntity;
