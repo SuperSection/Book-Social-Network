@@ -4,15 +4,21 @@ import com.supersection.bsn.book.entity.Book;
 import com.supersection.bsn.book.repository.BookRepository;
 import com.supersection.bsn.exception.OperationNotPermittedException;
 import com.supersection.bsn.feedback.dto.FeedbackRequest;
+import com.supersection.bsn.feedback.dto.FeedbackResponse;
 import com.supersection.bsn.feedback.entity.Feedback;
 import com.supersection.bsn.feedback.mapper.FeedbackMapper;
 import com.supersection.bsn.feedback.repository.FeedbackRepository;
+import com.supersection.bsn.shared.PageResponse;
 import com.supersection.bsn.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -40,6 +46,26 @@ public class FeedbackService {
 
         Feedback feedback = feedbackMapper.toFeedback(request);
         return feedbackRepository.save(feedback).getId();
+    }
+
+
+    public PageResponse<FeedbackResponse> findAllFeedbacksByBook(Integer bookId, int page, int size, Authentication connectedUser) {
+        Pageable pageable = PageRequest.of(page, size);
+        User user = (User) connectedUser.getPrincipal();
+        Page<Feedback> feedbacks = feedbackRepository.findAllByBookId(bookId, pageable);
+
+        List<FeedbackResponse> feedbackResponses = feedbacks.stream()
+                .map(feedback -> feedbackMapper.toFeedbackResponse(feedback, user.getId()))
+                .toList();
+        return new PageResponse<>(
+                feedbackResponses,
+                feedbacks.getNumber(),
+                feedbacks.getSize(),
+                feedbacks.getTotalElements(),
+                feedbacks.getTotalPages(),
+                feedbacks.isFirst(),
+                feedbacks.isLast()
+        );
     }
 
 }
