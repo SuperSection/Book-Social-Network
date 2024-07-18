@@ -6,8 +6,10 @@ import com.supersection.bsn.book.dto.BorrowedBookResponse;
 import com.supersection.bsn.book.entity.Book;
 import com.supersection.bsn.file.FileUtils;
 import com.supersection.bsn.history.entity.BookTransactionHistory;
+import org.springframework.stereotype.Service;
 
 
+@Service
 public class BookMapper {
 
     public Book toBook(BookRequest request) {
