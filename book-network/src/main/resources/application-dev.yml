@@ -44,3 +44,7 @@ application:
 
 server:
   port: 8088
+
+springdoc:
+  swagger-ui:
+    enabled: true
