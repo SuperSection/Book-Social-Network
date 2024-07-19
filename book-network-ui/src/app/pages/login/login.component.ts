@@ -27,7 +27,7 @@ export class LoginComponent {
   authRequest: AuthenticationRequest = { email: '', password: '' };
   errorMsg: Array<string> = [];
 
-  register() {
+  redirectToRegister() {
     this.router.navigate(['/register']);
   }
 
@@ -52,4 +52,5 @@ export class LoginComponent {
         },
       });
   }
+
 }

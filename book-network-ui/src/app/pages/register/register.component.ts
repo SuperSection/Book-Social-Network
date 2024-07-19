@@ -26,7 +26,7 @@ export class RegisterComponent {
   };
   errorMsg: Array<string> = [];
 
-  login() {
+  redirectToLogin() {
     this.router.navigate(['login']);
   }
 
