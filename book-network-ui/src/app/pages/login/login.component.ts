@@ -5,14 +5,14 @@ import {
   AuthenticationRequest,
   AuthenticationResponse,
 } from '../../services/models';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/services';
 import { TokenService } from '../../services/token/token.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
