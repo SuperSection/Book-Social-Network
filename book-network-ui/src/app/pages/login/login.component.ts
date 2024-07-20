@@ -17,7 +17,6 @@ import { TokenService } from '../../services/token/token.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-
   constructor(
     private router: Router,
     private authService: AuthenticationService,
@@ -28,7 +27,7 @@ export class LoginComponent {
   errorMsg: Array<string> = [];
 
   redirectToRegister() {
-    this.router.navigate(['/register']);
+    this.router.navigate(['register']);
   }
 
   login() {
@@ -40,7 +39,7 @@ export class LoginComponent {
       .subscribe({
         next: (res: AuthenticationResponse): void => {
           this.tokenService.token = res.token as string;
-          this.router.navigate(['/home']);
+          this.router.navigate(['books']);
         },
         error: (err) => {
           console.log(err);
