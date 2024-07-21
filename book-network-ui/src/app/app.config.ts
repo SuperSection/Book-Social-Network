@@ -6,12 +6,13 @@ import {
 } from '@angular/router';
 
 import { appRoutes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { httpTokenInterceptor } from './services/interceptor/http-token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(appRoutes, withPreloading(PreloadAllModules)),
-    provideHttpClient(),
+    provideRouter(appRoutes),
+    provideHttpClient(withInterceptors([httpTokenInterceptor])),
   ],
 };

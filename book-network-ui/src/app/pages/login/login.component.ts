@@ -17,6 +17,7 @@ import { TokenService } from '../../services/token/token.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  
   constructor(
     private router: Router,
     private authService: AuthenticationService,
