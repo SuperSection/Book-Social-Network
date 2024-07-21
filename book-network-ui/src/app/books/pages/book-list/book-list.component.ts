@@ -13,12 +13,11 @@ import { BookCardComponent } from "../../components/book-card/book-card.componen
   styleUrl: './book-list.component.scss',
 })
 export class BookListComponent implements OnInit {
-
   constructor(private bookService: BookService, private router: Router) {}
 
   bookResponse: PageResponseBookResponse = {};
   page: number = 0;
-  size: number = 5;
+  size: number = 4;
 
   ngOnInit(): void {
     this.findAllBooks();
@@ -35,6 +34,35 @@ export class BookListComponent implements OnInit {
           this.bookResponse = books;
         },
       });
+  }
+
+  goToFistPage() {
+    this.page = 0;
+    this.findAllBooks();
+  }
+
+  goToPreviousPage() {
+    this.page--;
+    this.findAllBooks();
+  }
+
+  goToPage(index: number) {
+    this.page = index;
+    this.findAllBooks();
+  }
+
+  goToNextPage() {
+    this.page++;
+    this.findAllBooks();
+  }
+
+  goToLastPage() {
+    this.page = this.bookResponse.totalPages as number - 1;
+    this.findAllBooks();
+  }
+  
+  get isLastPage(): boolean {
+    return this.page == (this.bookResponse.totalPages as number - 1);
   }
 
 }
