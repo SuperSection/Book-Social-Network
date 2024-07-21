@@ -1,11 +1,12 @@
 import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BookResponse } from '../../../services/models';
+import { RatingComponent } from "../rating/rating.component";
 
 @Component({
   selector: 'app-book-card',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, RatingComponent],
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.scss',
 })
