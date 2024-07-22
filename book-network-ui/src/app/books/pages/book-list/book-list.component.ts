@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -8,69 +8,27 @@ import {
 } from '../../../services/models';
 import { BookService } from '../../../services/services';
 import { BookCardComponent } from '../../components/book-card/book-card.component';
+import { PaginationComponent } from "../../components/pagination/pagination.component";
 
 @Component({
   selector: 'app-book-list',
   standalone: true,
-  imports: [NgFor, NgIf, BookCardComponent],
+  imports: [NgFor, NgIf, BookCardComponent, PaginationComponent],
   templateUrl: './book-list.component.html',
   styleUrl: './book-list.component.scss',
 })
-export class BookListComponent implements OnInit {
+export class BookListComponent extends PaginationComponent {
 
-  constructor(private bookService: BookService, private router: Router) {}
+  constructor(bookService: BookService, router: Router) {
+    super(bookService, router);
+  }
 
-  bookResponse: PageResponseBookResponse = {};
-  page: number = 0;
-  size: number = 4;
+  override ngOnInit() {
+    super.ngOnInit();
+  }
+
   message: string = '';
   level: string = 'success';
-
-  ngOnInit(): void {
-    this.findAllBooks();
-  }
-
-  findAllBooks() {
-    this.bookService
-      .findAllBooks({
-        page: this.page,
-        size: this.size,
-      })
-      .subscribe({
-        next: (books: PageResponseBookResponse) => {
-          this.bookResponse = books;
-        },
-      });
-  }
-
-  goToFistPage() {
-    this.page = 0;
-    this.findAllBooks();
-  }
-
-  goToPreviousPage() {
-    this.page--;
-    this.findAllBooks();
-  }
-
-  goToPage(index: number) {
-    this.page = index;
-    this.findAllBooks();
-  }
-
-  goToNextPage() {
-    this.page++;
-    this.findAllBooks();
-  }
-
-  goToLastPage() {
-    this.page = (this.bookResponse.totalPages as number) - 1;
-    this.findAllBooks();
-  }
-
-  get isLastPage(): boolean {
-    return this.page == (this.bookResponse.totalPages as number) - 1;
-  }
 
   borrowBook(book: BookResponse) {
     this.message = '';
