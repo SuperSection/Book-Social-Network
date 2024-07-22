@@ -4,6 +4,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ActivateAccountComponent } from './pages/activate-account/activate-account.component';
 import { MainComponent } from './books/pages/main/main.component';
 import { BookListComponent } from './books/pages/book-list/book-list.component';
+import { MyBooksComponent } from './books/pages/my-books/my-books.component';
 
 export const appRoutes: Routes = [
   {
@@ -30,6 +31,10 @@ export const appRoutes: Routes = [
       {
         path: '',
         component: BookListComponent,
+      },
+      {
+        path: 'my-books',
+        component: MyBooksComponent,
       },
     ],
   },
