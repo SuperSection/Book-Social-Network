@@ -26,7 +26,7 @@ export class PaginationComponent implements OnInit {
 
   findAllBooks() {
     this.bookService
-      .findAllBooksByOwner({
+      .findAllBooks({
         page: this.page,
         size: this.size,
       })

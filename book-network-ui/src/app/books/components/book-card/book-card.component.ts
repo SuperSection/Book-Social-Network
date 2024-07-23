@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { createApi } from 'unsplash-js';
 
 import { BookResponse } from '../../../services/models';
 import { RatingComponent } from '../rating/rating.component';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-book-card',
@@ -23,25 +21,8 @@ export class BookCardComponent {
   get bookCover(): string | undefined {
     if (this._book.cover) {
       return `data:image/jpg;base64,${this._book.cover}`;
-
     } else {
-      let randomPhoto: string = '';
-      const unsplash = createApi({ accessKey: environment.unsplashAccessKey });
-
-      unsplash.photos.getRandom({ orientation: 'portrait' }).then((result) => {
-        if (result.errors) {
-          console.log('Error occurred: ', result.errors[0]);
-          randomPhoto = environment.defaultBookCoverUrl;
-        } else {
-          if (Array.isArray(result.response)) {
-            randomPhoto = result.response[0].urls.full;
-          } else {
-            randomPhoto = result.response.urls.full;
-          }
-        }
-      });
-
-      return randomPhoto;
+      return 'https://img.freepik.com/free-photo/blank-white-mock-up-book_74190-5504.jpg?w=1060&t=st=1721750583~exp=1721751183~hmac=25aae9560e0585ace9f22eee42d90d4c3b8247097da70498b6aa8ede9cbe3a59';
     }
   }
 

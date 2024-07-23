@@ -5,8 +5,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { BookRequest } from '../../../services/models';
 import { BookService } from '../../../services/services';
-import { createApi } from 'unsplash-js';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-manage-book',
@@ -32,26 +30,8 @@ export class ManageBookComponent implements OnInit {
   };
   selectedBookCover: any;
   selectedPicture: string | undefined;
-  defaultPhoto: string = '';
 
   ngOnInit(): void {
-    const unsplash = createApi({ accessKey: environment.unsplashAccessKey });
-
-    unsplash.photos
-      .getRandom({ orientation: 'portrait', topicIds: ['bo8jQKTaE0Y'] })
-      .then((result) => {
-        if (result.errors) {
-          console.log('Error occurred: ', result.errors[0]);
-          this.defaultPhoto = environment.defaultBookCoverUrl;
-        } else {
-          if (Array.isArray(result.response)) {
-            this.defaultPhoto = result.response[0].urls.raw;
-          } else {
-            this.defaultPhoto = result.response.urls.raw;
-          }
-        }
-      });
-
     const bookId = this.activatedRoute.snapshot.params['bookId'];
     if (bookId) {
       this.bookService
@@ -68,6 +48,9 @@ export class ManageBookComponent implements OnInit {
               synopsis: book.synopsis as string,
               shareable: book.shareable,
             };
+            if (book.cover) {
+              this.selectedPicture = `data:image/jpg;base64,${book.cover}`;
+            }
           },
         });
     }
@@ -112,4 +95,5 @@ export class ManageBookComponent implements OnInit {
         },
       });
   }
+
 }

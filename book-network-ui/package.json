@@ -25,7 +25,6 @@
     "ng-openapi-gen": "^0.51.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "unsplash-js": "^7.0.19",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
