@@ -8,14 +8,17 @@ import com.supersection.bsn.user.Token;
 import com.supersection.bsn.user.TokenRepository;
 import com.supersection.bsn.user.User;
 import com.supersection.bsn.user.UserRepository;
+
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -76,7 +79,7 @@ public class AuthenticationService {
                 .token(jwtToken).build();
     }
 
-    // @Transactional
+    @Transactional
     public void activateAccount(String token) throws MessagingException {
         Token savedToken = tokenRepository.findByToken(token)
                 // TODO : exception has to be defined

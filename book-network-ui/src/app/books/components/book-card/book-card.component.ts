@@ -1,7 +1,10 @@
-import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { createApi } from 'unsplash-js';
+
 import { BookResponse } from '../../../services/models';
-import { RatingComponent } from "../rating/rating.component";
+import { RatingComponent } from '../rating/rating.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-book-card',
@@ -16,12 +19,30 @@ export class BookCardComponent {
   private _manage: boolean = false;
   private _bookCover: string | undefined;
 
-
+  
   get bookCover(): string | undefined {
     if (this._book.cover) {
-      return `data:image/jpg:base64,${this._book.cover}`;
+      return `data:image/jpg;base64,${this._book.cover}`;
+
+    } else {
+      let randomPhoto: string = '';
+      const unsplash = createApi({ accessKey: environment.unsplashAccessKey });
+
+      unsplash.photos.getRandom({ orientation: 'portrait' }).then((result) => {
+        if (result.errors) {
+          console.log('Error occurred: ', result.errors[0]);
+          randomPhoto = environment.defaultBookCoverUrl;
+        } else {
+          if (Array.isArray(result.response)) {
+            randomPhoto = result.response[0].urls.full;
+          } else {
+            randomPhoto = result.response.urls.full;
+          }
+        }
+      });
+
+      return randomPhoto;
     }
-    return 'https://source.unsplash.com/user/c_v_r/1900x800';
   }
 
   get book() {
@@ -49,7 +70,6 @@ export class BookCardComponent {
   @Output() private edit: EventEmitter<BookResponse> = new EventEmitter<BookResponse>();
   @Output() private share: EventEmitter<BookResponse> = new EventEmitter<BookResponse>();
   @Output() private archive: EventEmitter<BookResponse> = new EventEmitter<BookResponse>();
-
 
   onShowDetails() {
     this.details.emit(this._book);

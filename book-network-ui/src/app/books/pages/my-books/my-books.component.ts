@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
 import { BookService } from '../../../services/services';
-import { BookResponse, PageResponseBookResponse } from '../../../services/models';
+import { BookResponse } from '../../../services/models';
 import { BookCardComponent } from "../../components/book-card/book-card.component";
 import { PaginationComponent } from '../../components/pagination/pagination.component';
 

@@ -1,7 +1,11 @@
 package com.supersection.bsn.handler;
 
-import com.supersection.bsn.exception.OperationNotPermittedException;
-import jakarta.mail.MessagingException;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -10,15 +14,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.supersection.bsn.exception.OperationNotPermittedException;
 import static com.supersection.bsn.handler.BusinessErrorCodes.ACCOUNT_DISABLED;
 import static com.supersection.bsn.handler.BusinessErrorCodes.ACCOUNT_LOCKED;
 import static com.supersection.bsn.handler.BusinessErrorCodes.BAD_CREDENTIALS;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+
+import jakarta.mail.MessagingException;
 
 
 @RestControllerAdvice
