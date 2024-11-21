@@ -14,7 +14,8 @@ import { PaginationComponent } from '../../components/pagination/pagination.comp
   templateUrl: './my-books.component.html',
   styleUrl: './my-books.component.scss',
 })
-export class MyBooksComponent extends PaginationComponent {
+export class MyBooksComponent extends PaginationComponent<PageResponseBookResponse> {
+
   constructor(bookService: BookService, router: Router) {
     super(bookService, router);
   }

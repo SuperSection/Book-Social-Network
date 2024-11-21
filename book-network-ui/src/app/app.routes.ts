@@ -6,6 +6,7 @@ import { MainComponent } from './books/pages/main/main.component';
 import { BookListComponent } from './books/pages/book-list/book-list.component';
 import { MyBooksComponent } from './books/pages/my-books/my-books.component';
 import { ManageBookComponent } from './books/pages/manage-book/manage-book.component';
+import { BorrowedBookListComponent } from './books/pages/borrowed-book-list/borrowed-book-list.component';
 
 export const appRoutes: Routes = [
   {
@@ -36,6 +37,10 @@ export const appRoutes: Routes = [
       {
         path: 'my-books',
         component: MyBooksComponent,
+      },
+      {
+        path: 'my-borrowed-books',
+        component: BorrowedBookListComponent,
       },
       {
         path: 'manage',

@@ -12,11 +12,11 @@ import { PageResponseBookResponse } from '../../../services/models';
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss',
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent<T extends PageResponseBookResponse> implements OnInit {
 
   constructor(protected bookService: BookService, protected router: Router) {}
   
-  bookResponse: PageResponseBookResponse = {};
+  bookResponse: T = {} as T;
   page: number = 0;
   size: number = 4;
 
@@ -32,7 +32,7 @@ export class PaginationComponent implements OnInit {
       })
       .subscribe({
         next: (books: PageResponseBookResponse) => {
-          this.bookResponse = books;
+          this.bookResponse = books as T;
         },
       });
   }
@@ -62,7 +62,7 @@ export class PaginationComponent implements OnInit {
   }
 
   goToLastPage() {
-    this.page = (this.bookResponse.totalPages as number) - 1;
+    this.page = (this.res.totalPages as number) - 1;
     this.findAllBooks();
   }
 
